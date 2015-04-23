@@ -1357,12 +1357,12 @@ int main(void) {
    // Checker Disk
    ///////////////
    // Inglis et al.'s parameters
-   set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1);
-   //set_params(params, 20., 10., 10., 0.1, 0.1, 0.15, 5, 1); // a bit more contrast
-   //set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1); // change theta to use max-row or row-sum
-   img = load_image("../test_imgs/checker_disk_60.png");
-   U = image_seg(img, params);
-   write_seg_images(img, U, "gen_imgs/checker_disk_60", 1);
+   //set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1);
+   ////set_params(params, 20., 10., 10., 0.1, 0.1, 0.15, 5, 1); // a bit more contrast
+   ////set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1); // change theta to use max-row or row-sum
+   //img = load_image("../test_imgs/checker_disk_60.png");
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/checker_disk_60", 1);
  
    //img = load_image("../test_imgs/checker_disk_120.png");
    //U = image_seg(img, params);
@@ -1416,5 +1416,45 @@ int main(void) {
    //U = image_seg(img, params);
    //write_seg_images(img, U, "gen_imgs/peppers", 1);
 
+
+   // Nazca Lines
+   // This is probably a _very_ tough image to segment
+   //img = load_image("../test_imgs/nazca3_200.jpg");
+   //set_params(params, 30., 4., 1., 0.2, 0.15, 0.15, 5, 1);
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/nazca3_500", 1);
+ 
+   //img = load_image("../test_imgs/nazca3_500.jpg");
+   //set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2);
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/nazca3_500", 1);
+
+   // CK
+   //img = load_image("../test_imgs/ck.png");
+   //set_params(params, 90., 5., 5., 0.10, 0.15, 0.15, 5, 1);
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/ck", 1);
+
+   // C. Elegans front
+   // I want to see if we can segment the various parts of the worm.  I'd be surprised if this works.
+   //set_params(params, 130., 0.5, 100., 0.10, 0.15, 0.15, 6, 2);
+   //img = load_image("../test_imgs/c_elegans_front_256.png");
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/c_elegans_front_256", 1);
+
+   //img = load_image("../test_imgs/c_elegans_front_512.png");
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/c_elegans_front_512", 1);
+ 
+   // Two C. Elegans 
+   // Can we tell the two worms apart?
+   //set_params(params, 1., 20., 2., 0.05, 0.05, 0.10, 7, 1); // this is pretty close
+   //set_params(params, 2., 23., 2., 0.05, 0.05, 0.10, 7, 1); // this finds a disjoint segment.  interesting
+   set_params(params, 1.5, 20., 1., 0.05, 0.05, 0.10, 7, 1); // this is pretty good.
+   img = load_image("../test_imgs/two_c_elegans.jpg");
+   U = image_seg(img, params);
+   write_seg_images(img, U, "gen_imgs/two_c_elegans", 1);
+
+   
    return 0;
 }
