@@ -1141,43 +1141,30 @@ void set_params(seg_params& params, const double alpha,
 void assign_uniquely(matrix_crs<double>& U) {
 // {{{
 
+   // Build up new CRS matrix (probably faster than erasing in place)
+   vector<unsigned> row_ptr(U.m+1,0);
+   vector<unsigned> col_ind; col_ind.reserve(U.m);
+   vector<double> val; val.reserve(U.m);
+
+   vector<double>::iterator Uval_it = U.val.begin();
+   vector<double>::iterator Uval_it_end;
    for (unsigned i = 0; i < U.m; ++i) {
+      row_ptr[i] = i;
 
-      // if there is only one element in this row, the pixel assignment is
-      // unique
-      if ( U.row_ptr[i+1] - U.row_ptr[i] == 1 ) continue;
-      else {
-         // max_element returns (an iterator pointing to) the first
-         // maximal element
-         auto max_el_it = max_element(U.val.begin() + U.row_ptr[i],
-               U.val.begin() + U.row_ptr[i+1]);
-         unsigned max_jp = distance(U.val.begin(), max_el_it);
-         U.val[max_jp] = 1.;
+      // Find max element in this row
+      Uval_it = U.val.begin() + U.row_ptr[i];
+      Uval_it_end = U.val.begin() + U.row_ptr[i+1];
+      Uval_it = max_element(Uval_it, Uval_it_end);
 
-         // This is similar to matrix_crs::clean
-         // erase any elements other than max_jp
-         unsigned num_removed = 0;
-         unsigned jp = U.row_ptr[i];
-         unsigned jp_end = U.row_ptr[i+1];
-         while ( jp < jp_end ) {
-            if ( jp != max_jp ) {
-               U.col_ind.erase(U.col_ind.begin() + jp);
-               U.val.erase(U.val.begin() + jp);
-               ++num_removed;
-               --jp_end;
-               --max_jp;
-            }
-            else ++jp;
-         }
-         
-         // fix row pointers
-         // XXX: there is a slightly more efficient way to do this
-         //      see coarse_variance for the idea
-         for (unsigned r = i+1; r <= U.m; ++r) {
-            U.row_ptr[r] -= num_removed;
-         }
-      }
+      val.push_back(1.);
+      col_ind.push_back(U.col_ind[Uval_it - U.val.begin()]);
    }
+   row_ptr[U.m] = U.m;
+
+   // assign new CRS components to U
+   U.row_ptr = row_ptr;
+   U.col_ind = col_ind;
+   U.val = val;
 
 // }}}
 }
@@ -1647,12 +1634,12 @@ int main(void) {
    // Algorithm timing stuff
    // We're currently sitting on a nice O(n^2) in the number of pixels.  This is almost entirely due to something slow thhat I'm doing in build_interp and coarsenAMG.  These two account for almost all of the cost of running the code!
    //set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1); // Inglis coarsening
-   set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1); // RS coarsening
-   img = load_image("../test_imgs/peppers.jpg");
+   //set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1); // RS coarsening
+   //img = load_image("../test_imgs/peppers.jpg");
    
    //set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2); // Inglis coarsening
-   //set_params(params, 10., 1., 10., 0.025, 0.10, 0.15, 5, 2); // RS coarsening 
-   //img = load_image("../test_imgs/spiral_512.png");
+   set_params(params, 10., 1., 10., 0.025, 0.10, 0.15, 5, 2); // RS coarsening 
+   img = load_image("../test_imgs/spiral_512.png");
    
    runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
 
