@@ -368,7 +368,6 @@ matrix_crs<double> build_interp(const matrix_crs<double>& A,
 // It is assumed that C is sorted in increasing order; this should always
 // happen due to the construction of C by `coarsen_AMG`.
 //
-// TODO: this is a slower part of the code
 
    vector<unsigned> row_ptr(M+1,0), col_ind;
    vector<double> val;
@@ -377,6 +376,11 @@ matrix_crs<double> build_interp(const matrix_crs<double>& A,
    val.reserve(A.col_ind.size());
 
    unsigned C_ind = 0;
+   vector<unsigned> A_inds; // vector of indexes for A.col_ind/A.val
+   A_inds.reserve( C.size() );
+   vector<unsigned> C_inds; // vector of indexes for C
+   C_inds.reserve( C.size() );
+ 
    for (unsigned i = 0; i < M; ++i) {
       row_ptr[i+1] = row_ptr[i];
 
@@ -398,53 +402,42 @@ matrix_crs<double> build_interp(const matrix_crs<double>& A,
          // compute ith row sum of A but only over the C-points
          // it is assumed that A's CRS data structure is ordered/sorted and 
          // that the C-points are ordered
-         vector<unsigned> A_inds; // vector of indexes for A.col_ind/A.val
-         A_inds.reserve( MIN((A.row_ptr[i+1]-A.row_ptr[i]), C.size()) );
-         unsigned jp = A.row_ptr[i];
+         A_inds.clear();
+         auto jp_it = A.col_ind.begin() + A.row_ptr[i];
+         auto jp_it_end = A.col_ind.begin() + A.row_ptr[i+1];
 
-         vector<unsigned> C_inds; // vector of indexes for C
-         C_inds.reserve( MIN((A.row_ptr[i+1]-A.row_ptr[i]), C.size()) );
-         unsigned j = 0;
+         C_inds.clear();
+         auto j_it = C.begin();
+         auto j_it_end = C.end();
  
          double row_sum = 0.;
-         // TODO: using gcov, it looks like a lot of ``time'' is spent here
-         while ( jp < A.row_ptr[i+1] && j < C.size() ) {
-            if ( A.col_ind[jp] < C[j] ) ++jp;
-            else if ( C[j] < A.col_ind[jp] ) ++j;
+         while ( jp_it != jp_it_end && j_it != j_it_end ) {
+            if ( *jp_it < *j_it ) {
+               //++jp_it;
+               jp_it = lower_bound(jp_it, jp_it_end, *j_it);
+            }
+
+            else if ( *j_it < *jp_it ) {
+               //++j_it;
+               j_it = lower_bound(j_it, j_it_end, *jp_it); // this search makes a _huge_ difference!
+            }
+
             else {
-               //cout << A.col_ind[jp] << endl;
-               row_sum += A.val[jp];
+               row_sum += A.val[jp_it - A.col_ind.begin()];
 
-               A_inds.push_back(jp);
-               C_inds.push_back(j);
+               A_inds.push_back(jp_it - A.col_ind.begin());
+               C_inds.push_back(j_it - C.begin());
 
-               ++jp; ++j;
+               ++jp_it; ++j_it;
             }
          }
 
-         //cout << "i = " << i << endl;
-         //cout << "A row = " << endl;
-         //for (auto it = A.col_ind.begin() + A.row_ptr[i];
-         //      it != A.col_ind.begin() + A.row_ptr[i+1]; ++it) {
-         //   cout << "        " << *it << endl;
-         //}
-
-         //cout << "C = " << endl;
-         //print_vector(C);
-
-         //cout << "A_inds = " << endl;
-         //print_vector(A_inds);
- 
-         //cout << "C_inds = " << endl;
-         //print_vector(C_inds);
- 
-         // now that we know the row sum and the proper indexes,
-         // assign values to row of P
-         for (j = 0; j < C_inds.size(); ++j) {
+         for (unsigned j = 0; j < C_inds.size(); ++j) {
             ++row_ptr[i+1];
             col_ind.push_back(C_inds[j]);
             val.push_back( A.val[A_inds[j]] / row_sum );
          }
+ 
       }
    }
 
@@ -803,12 +796,14 @@ vector<unsigned> coarsen_AMG(const list<image_level>::iterator it,
    // equivalently, while not all T[i] > 0
 
    vector<unsigned>::iterator Teqz_it;
+   auto Teqz_it_end = Teqz.end();
 
    while ( Teqz.size() > 0 ) {
 
       unsigned ml = 0;
       Teqz_it = Teqz.begin(); // in case lambda is a vector of zeros
-      for (auto it = Teqz.begin(); it != Teqz.end(); ++it) {
+      Teqz_it_end = Teqz.end();
+      for (auto it = Teqz.begin(); it != Teqz_it_end; ++it) {
          if ( lambda[*it] > ml ) {
             Teqz_it = it;
             ml = lambda[*it];
@@ -1462,6 +1457,11 @@ int main(void) {
    //set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2);
    //U = image_seg(img, params);
    //write_seg_images(img, U, "gen_imgs/spiral_64", 1);
+ 
+   img = load_image("../test_imgs/spiral_256.png");
+   set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2);
+   U = image_seg(img, params);
+   write_seg_images(img, U, "gen_imgs/spiral_256", 1);
   
    // Peppers
    //////////
@@ -1531,7 +1531,8 @@ int main(void) {
    
    //set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2);
    //img = load_image("../test_imgs/spiral_512.png");
-   runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
+   
+   //runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
 
 
    return 0;
