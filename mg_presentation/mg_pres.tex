@@ -1,0 +1,353 @@
+%
+\documentclass[8pt]{beamer}
+
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  \setbeamercovered{invisible}
+}
+\expandafter\def\expandafter\insertshorttitle\expandafter{%
+ \insertshorttitle\hfill%
+ \insertframenumber\,/\,\inserttotalframenumber}
+
+
+%\usepackage{times}
+\usepackage[english]{babel}
+
+\usepackage[latin1]{inputenc}
+\usepackage{graphicx}
+\usepackage{media9}
+    \usepackage[all]{xy}
+    \usepackage{xypic}
+  \usepackage{times}
+    \usepackage{ulem}
+    \usepackage[T1]{fontenc}
+    \usepackage{amsfonts,amsmath,amssymb}
+    \usepackage{hyperref}
+    %\usepackage[all]{xy}
+    \usepackage{amssymb,amsthm,amsxtra}
+    %\usepackage[usenames]{color}
+    \usepackage{amscd}
+    \usepackage{amsthm}
+    \usepackage{amsfonts}
+    \usepackage{amssymb}
+    \usepackage{mathrsfs}
+    \usepackage{mathdots}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{verbatim}
+
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{remark}{Remark}
+\newtheorem*{rem}{Remark}
+\newtheorem*{question}{Question}
+
+
+%\newtheorem*{example}{Example}
+%\newtheorem*{theorem}{Theorem}
+%\newtheorem*{definition}{Definition}
+\newtheorem*{notation}{Notation}
+%\newtheorem*{result}{Result}
+%\newtheorem*{property}{}
+%\newtheorem*{corollary}{Corollary}
+%\newtheorem*{construction}{Construction}
+%\newtheorem*{case}{Case}
+\newtheorem*{conjecture}{Conjecture}
+\newtheorem*{setting}{Setting}
+\newtheorem*{flowchart}{Flowgausschart}
+
+%\newtheorem{cor}[lemma]{Corollary}
+%\newtheorem{exm}[lemma]{Example}
+%\newtheorem{exc}[lemma]{Exercise}
+%\newtheorem{conj}[lemma]{Conjecture}
+%\newtheorem{rem}[lemma]{Remark}
+%\newtheorem{conc}[lemma]{Conclusion}
+
+
+\definecolor{DarkGreen}{rgb}{0,0.5,0}
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%% BEGIN COMMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{comment}
+
+\title{Numerical Analysis in High Dimensions}
+\author[]{ Nathan H., Andrew W., Andrew C., Ryan A., and Jeremiah C.\\ Dr. Pierre Gremaud, Rachael Gordon-Wright }
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Background}
+\begin{itemize}
+\item Uncertain parameters in equations  
+\item A "solution" of the equation involves probability
+\item Two options: Monte Carlo simulations or pdf of the function
+\end{itemize}
+\begin{figure}
+\includegraphics[width=.8\linewidth]{CIex.jpg}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Outline}
+\begin{itemize}
+\item Description of sample problem
+\vspace{4mm}
+\item Our method: deriving and solving the pdf equation
+\vspace{4mm}
+\item "Old" method: Monte Carlo simulations
+\vspace{4mm}
+\item Discussion of results
+\vspace{4mm}
+\item Applying this method to other equations
+\vspace{4mm}
+\item Future work
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sample Problem} 
+\begin{itemize} 
+\item Van der Pol equation
+		\begin{itemize} 
+		\item $\frac{d^2u}{dt} - \mu(1-u^2) \frac{du}{dt} + u = 0$ 
+			\begin{itemize}
+			\item $\mu$ is a parameter, describes strength of oscillations
+			\end{itemize}
+		\item Solve by splitting it up into two first-order ODEs
+			\begin{itemize}
+			\item $\frac{du}{dt} = v$
+			\item $\frac{dv}{dt} - \mu(1-u^2) + u = 0$
+			\end{itemize}
+		\end{itemize} 
+\item Initial conditions 
+	\begin{itemize} 
+	\item $u(0) = 1 + \eta$ 
+	\item $v(0) = \zeta$ 
+	\item $\eta, \zeta \sim \mathcal{N}(0,0.01)$
+	\end{itemize}
+\item Resolution of problem 
+	\begin{itemize} 
+	\item Stochastic initial conditions: Statistical approach 
+	\item Probability Density Function: p(X) = P(x=X)
+	\item Nonlinear system: Numerical approach
+	\end{itemize}
+\end{itemize}
+\end{frame}
+	
+\begin{frame}
+
+	\frametitle{Deriving the PDF equation for the Van der Pol Oscillator}
+	\begin{itemize}
+
+	\item We define the raw PDF function as:
+	\begin{equation}
+	\Pi = \delta(U-u(t))\delta(V-v(t)),
+	\end{equation}
+	where E[\textit{$\Pi$}] = p(U,V,t) (PDF function).
+	\vspace{3 mm}
+	
+	\item We multiply \textit{$\frac{du}{dt}$} by \textit{$\frac{\partial\Pi}{\partial U}$}, and \textit{$\frac{dv}{dt}$} by \textit{$\frac{\partial\Pi}{\partial V}$} in order to get following equation:
+	\begin{equation}
+	\frac{\partial\Pi}{\partial t} + V\frac{\partial\Pi}{\partial U} + [\mu(1 - U^2)V-U]\frac{\partial\Pi}{\partial V} = 0
+	\end{equation}
+
+	\vspace{3 mm}
+	\item Taking the expected value of both sides leads to the PDF equation:
+	\begin{equation}
+	\frac{\partial p}{\partial t} + V\frac{\partial p}{\partial U} + [\mu(1 - U^2)V-U]\frac{\partial p}{\partial V} = 0
+	\end{equation}	
+
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results: PDE vs. Monte-Carlo}
+\begin{figure}
+\includegraphics[width=1\linewidth]{comparison_1.eps}
+\caption{mu = 0.5}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results: PDE vs. Monte-Carlo}
+\begin{figure}
+\includegraphics[width=1\linewidth]{comparison_2.eps}
+\caption{mu = 1.5}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results: PDE vs. Monte-Carlo}
+\begin{figure}
+\includegraphics[width=1\linewidth]{comparison_3.eps}
+\caption{mu = 5}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Wave Equation}
+\begin{itemize}
+\item Standard Form
+\begin{itemize}
+\item $\frac{\partial^2 u}{\partial t^2}-c^2\frac{\partial^2 u}{\partial x^2} = 0$
+\item u(x,t) = amplitude of wave
+\item c = speed of propagation
+\end{itemize}
+\item First Order System
+\begin{itemize}
+\item Let $u_1 = \frac{\partial u}{\partial t}$ and $u_2 = \frac{\partial u}{\partial x}$
+\item $\frac{\partial u_1}{\partial t} - c^2 \frac{\partial u_2}{\partial x} = 0$
+\item $\frac{\partial u_2}{\partial t} - \frac{\partial u_1}{\partial x} = 0$
+\end{itemize}
+\item Analytical Solution to First Order PDEs (Advection Equations)
+\begin{itemize}
+\item If $\frac{\partial u}{\partial t} - c \frac{\partial u}{\partial x} = 0$
+\item $u(x,t) = u_0(x-ct)$
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sample Problem}
+\begin{itemize}
+\item System
+\begin{itemize}
+\item $\frac{\partial u_1}{\partial t} - c^2 \frac{\partial u_2}{\partial x} = 0$
+\item $\frac{\partial u_2}{\partial t} - \frac{\partial u_1}{\partial x} = 0$
+\item $c \sim \mathcal{U}(1-\epsilon,1+\epsilon)$
+\end{itemize}
+\item $2\pi$-periodic boundary conditions
+\item Initial conditions
+\begin{itemize}
+\item $u_1(x,0) = sin(x) + \eta$
+\item $u_2(x,0) = cos(x) + \zeta$
+\item $\eta, \zeta \sim \mathcal{N}(0,1)$
+\end{itemize}
+\item Computing the CDF
+\begin{itemize}
+\item Analytical CDF
+\begin{itemize}
+\item Only for deterministic speeds $(\epsilon = 0)$
+\end{itemize}
+\item Monte Carlo simulation
+\item Our derivation of the PDF/CDF
+\begin{itemize}
+\item Error from calculating expected values (closure rules)
+\item Error from discretization
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Results}
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=1\linewidth]{cdf_ana_wave.eps}
+\caption{Monte Carlo approximation to CDF}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=1\linewidth]{cdf_num_wave.eps}
+\caption{Numerical approximation to CDF}
+\end{subfigure}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Future Steps and Applications}
+
+\begin{columns}
+
+\begin{column}{0.5 \textwidth}
+\begin{itemize}
+\setlength{\itemsep}{5pt}
+
+\item Previously mentioned issues
+
+\item Expand method to a broader range of problems: 
+	\begin{itemize}
+	\setlength{\itemsep}{2pt}
+	\item Lorenz equations model atmospheric convection, and are very sensitive to initial conditions. 
+		$$\left\{\begin{array}{l}
+		\displaystyle{\frac{dx}{dt} = \sigma (y - x)} \\ \\
+		\displaystyle{\frac{dy}{dt} = x(\rho - z) - y} \\ \\
+		\displaystyle{\frac{dz}{dt} = xy - \beta z}\end{array}\right.$$
+		
+	\item Other ODEs 
+	\item PDEs (wave and acoustic wave equations, specifically)	\end{itemize}
+\end{itemize}
+
+\end{column}
+
+\begin{column}{0.5 \textwidth}
+\begin{figure}
+
+\includegraphics[width = 2in]{lorenz_attractor.png}
+\caption{The Lorenz Butterfly}
+
+\end{figure}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Method of Lines}
+
+\begin{columns}
+
+\begin{column}{0.5 \textwidth}
+\begin{itemize}
+
+\item Use semi-discretization (method of lines) to estimate the pdf of a stochastic partial differential equation.
+
+	\begin{itemize} 
+	\setlength{\itemsep}{2pt}
+	\item $\displaystyle{\frac{du_i}{dt} = \mathfrak{F}(u_{i-1}, u_i, u_{i+1})}$
+	\item Each differential equation represents a node of the discretization
+	\item Number of dimensions increases quickly
+	\end{itemize}
+
+\end{itemize}
+
+\end{column}
+
+\begin{column}{0.5 \textwidth}
+\begin{figure}
+
+\includegraphics[width = 2in]{MOL.png}
+\caption{Method of Lines for a heat problem}
+
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Acknowledgments}
+\begin{itemize}
+\item National Science Foundation grant numbers DMS-1063010 and DMS-0943855
+\item National Security Agency grant number H98230-12-0299
+\item Faculty mentor: Dr. Pierre Gremaud
+\item Graduate mentor: Rachael Gordon-Wright
+\end{itemize}
+\end{frame}
+
+\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%% END COMMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
