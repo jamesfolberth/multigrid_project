@@ -16,6 +16,8 @@
 #include <valarray>
 #include <vector>
 #include <string>
+#include <chrono> // for algorithm runtime things
+#include <fstream>
 
 #include <opencv2/opencv.hpp> // We use OpenCV for image I/O and cv::Mat 
 
@@ -193,5 +195,16 @@ void write_seg_images(const cv::Mat& img, const matrix_crs<double>& U,
       const string& filename_base, const unsigned mode = 1);
 
 // }}}
+
+
+//////////////////////
+// Algorithm Timing //
+//////////////////////
+// {{{
+
+void runtime_scaling(const cv::Mat& img, seg_params& params, const string& out_filename);
+
+// }}}
+
 
 #endif

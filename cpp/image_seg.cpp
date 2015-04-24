@@ -372,6 +372,9 @@ matrix_crs<double> build_interp(const matrix_crs<double>& A,
 
    vector<unsigned> row_ptr(M+1,0), col_ind;
    vector<double> val;
+   
+   col_ind.reserve(A.col_ind.size());
+   val.reserve(A.col_ind.size());
 
    unsigned C_ind = 0;
    for (unsigned i = 0; i < M; ++i) {
@@ -1316,6 +1319,70 @@ void write_seg_images(const cv::Mat& orig_img, const matrix_crs<double>& U,
 // }}}
 
 
+///////////////////////
+// Algorithim Timing //
+///////////////////////
+// {{{
+
+void runtime_scaling(const cv::Mat& img, seg_params& params, const string& out_filename) {
+
+   cv::Mat img_resize;
+   unsigned num_imgs = 20, num_samples = 1;
+   unsigned max_size = img.rows, min_size = 10, pix_lin_step;
+   vector<unsigned> img_sizes(num_imgs,0);
+
+   // sample images sizes to pixel numbers are linear
+   pix_lin_step = static_cast<double>(max_size*max_size-min_size*min_size)/static_cast<double>(num_imgs-1);
+   img_sizes[0] = min_size;
+   for (unsigned i = 1; i < num_imgs; ++i) {
+      img_sizes[i] = static_cast<unsigned>(sqrt(img_sizes[i-1]*img_sizes[i-1] + pix_lin_step));
+   }
+   if ( img_sizes[num_imgs-1] != max_size ) {
+      img_sizes.push_back(max_size);
+   }
+  
+   // open data output file
+   ofstream outfile;
+   outfile.open(out_filename, ios::out | ios::trunc);
+   if ( !outfile.is_open() ) {
+      cerr << "error: image_seg.cpp:runtime_scaling: I had an issue opening the file \""
+           << out_filename << "\"" << endl;
+      exit(-1);
+   }
+
+   // rescale images and run num_samples runs of image segmentation
+   matrix_crs<double> U;
+   vector<unsigned> runtimes_ms(img_sizes.size(), 0);
+
+   for (unsigned i = 0; i < img_sizes.size(); ++i) {
+      cv::resize(img, img_resize, cv::Size(img_sizes[i], img_sizes[i]));
+      cout << "i = " << i << "  rows = " << img_resize.rows << endl;
+
+      // run num_samples image segmentations
+      auto t_start = chrono::high_resolution_clock::now();
+      for (unsigned samp = 0; samp < num_samples; ++samp) {
+         U = image_seg(img_resize, params);
+      }
+      auto t_end = chrono::high_resolution_clock::now();
+
+      // average time
+      runtimes_ms[i] = static_cast<unsigned>(static_cast<double>(
+               chrono::duration_cast<chrono::milliseconds>(t_end-t_start).count())
+         / static_cast<double>(num_samples));
+   
+   }
+
+   // write number of pixels and average runtimes to outfile for plotting with gnuplot
+   for (unsigned i = 0; i < img_sizes.size(); ++i) {
+      outfile << img_sizes[i]*img_sizes[i] << "  " << runtimes_ms[i] << endl;
+   }
+
+   outfile.close();
+}
+
+// }}}
+
+
 int main(void) {
 
    cv::Mat img;
@@ -1398,8 +1465,8 @@ int main(void) {
   
    // Peppers
    //////////
-   set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1);
-   //set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1);
+   //set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1);
+   ////set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1);
    //img = load_image("../test_imgs/peppers_25.jpg");
    //U = image_seg(img, params);
    //write_seg_images(img, U, "gen_imgs/peppers_25", 1);
@@ -1448,13 +1515,24 @@ int main(void) {
  
    // Two C. Elegans 
    // Can we tell the two worms apart?
-   //set_params(params, 1., 20., 2., 0.05, 0.05, 0.10, 7, 1); // this is pretty close
-   //set_params(params, 2., 23., 2., 0.05, 0.05, 0.10, 7, 1); // this finds a disjoint segment.  interesting
-   set_params(params, 1.5, 20., 1., 0.05, 0.05, 0.10, 7, 1); // this is pretty good.
-   img = load_image("../test_imgs/two_c_elegans.jpg");
-   U = image_seg(img, params);
-   write_seg_images(img, U, "gen_imgs/two_c_elegans", 1);
+   ////set_params(params, 1., 20., 2., 0.05, 0.05, 0.10, 7, 1); // this is pretty close
+   ////set_params(params, 2., 23., 2., 0.05, 0.05, 0.10, 7, 1); // this finds a disjoint segment.  interesting
+   //set_params(params, 1.5, 20., 1., 0.05, 0.05, 0.10, 7, 1); // this is pretty good.
+   //img = load_image("../test_imgs/two_c_elegans.jpg");
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/two_c_elegans", 1);
+
 
    
+   // Algorithm timing stuff
+   // We're currently sitting on a nice O(n^2) in the number of pixels.  This is almost entirely due to something slow thhat I'm doing in build_interp and coarsenAMG.  These two account for almost all of the cost of running the code!
+   set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1);
+   img = load_image("../test_imgs/peppers.jpg");
+   
+   //set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2);
+   //img = load_image("../test_imgs/spiral_512.png");
+   runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
+
+
    return 0;
 }

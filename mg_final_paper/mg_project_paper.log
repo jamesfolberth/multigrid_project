@@ -1,26 +1,13 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  19 APR 2015 18:10
-entering extended mode
+This is LuaTeX, Version beta-0.79.1 (TeX Live 2014/Arch Linux) (rev 4971)  (format=lualatex 2015.4.6)  23 APR 2015 21:33
  restricted \write18 enabled.
- file:line:error style messages enabled.
- %&-line parsing enabled.
 **mg_project_paper.tex
 (./mg_project_paper.tex
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, ge
-rman-x-2012-05-30, ngerman-x-2012-05-30, afrikaans, ancientgreek, ibycus, arabi
-c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
-h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
-h, french, friulan, galician, german, ngerman, swissgerman, monogreek, greek, h
-ungarian, icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, ma
-rathi, oriya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, 
-kurmanji, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk,
- polish, portuguese, romanian, romansh, russian, sanskrit, serbian, serbianc, s
-lovak, slovenian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, 
-welsh, loaded.
-(/usr/local/texlive/2012/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2012/texmf-dist/tex/latex/base/size12.clo
-File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+LaTeX2e <2014/05/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+(/usr/share/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -34,41 +21,41 @@ File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2000/07/18 v2.13 AMS math features
+(/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip43
 
 For additional information on amsmath, use the `?' option.
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amsmath/amsgen.sty
+(/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks14
 \ex@=\dimen103
 ))
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen104
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amsmath/amsopn.sty
+(/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count87
-LaTeX Info: Redefining \frac on input line 211.
+LaTeX Info: Redefining \frac on input line 210.
 \uproot@=\count88
 \leftroot@=\count89
-LaTeX Info: Redefining \overline on input line 307.
+LaTeX Info: Redefining \overline on input line 306.
 \classnum@=\count90
 \DOTSCASE@=\count91
-LaTeX Info: Redefining \ldots on input line 379.
-LaTeX Info: Redefining \dots on input line 382.
-LaTeX Info: Redefining \cdots on input line 467.
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen105
-LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \macc@depth=\count92
 \c@MaxMatrixCols=\count93
 \dotsspace@=\muskip10
@@ -89,20 +76,20 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \multlinegap=\skip44
 \multlinetaggap=\skip45
 \mathdisplay@stack=\toks18
-LaTeX Info: Redefining \[ on input line 2666.
-LaTeX Info: Redefining \] on input line 2667.
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/amssymb.sty
-Package: amssymb 2009/06/22 v3.00
+(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/amsfonts.sty
-Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amscls/amsthm.sty
+(/usr/share/texmf-dist/tex/latex/amscls/amsthm.sty
 Package: amsthm 2009/07/02 v2.20.1
 \thm@style=\toks19
 \thm@bodyfont=\toks20
@@ -114,35 +101,57 @@ Package: amsthm 2009/07/02 v2.20.1
 \thm@headsep=\skip48
 \dth@everypar=\toks24
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/epsfig.sty
+(/usr/share/texmf-dist/tex/latex/graphics/epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks25
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/trig.sty
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/graphics.cfg
+(/usr/share/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/share/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+(/usr/share/texmf-dist/tex/generic/oberdiek/infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+(/usr/share/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
+
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX detected.
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/luatex-loader.sty
+Package: luatex-loader 2010/03/09 v0.4 Lua module loader (HO)
+
+(/usr/share/texmf-dist/scripts/oberdiek/oberdiek.luatex.lua))
+\pdftexcmds@toks=\toks26
 )
 \Gread@gobject=\count99
 ))
@@ -152,42 +161,42 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \epsfxsize=\dimen114
 \epsfysize=\dimen115
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+(/usr/share/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen116
 \WF@size=\dimen117
 \c@WF@wrappedlines=\count100
 \WF@box=\box28
-\WF@everypar=\toks26
+\WF@everypar=\toks27
 Package: wrapfig 2003/01/31  v 3.6
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+(/usr/share/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/color.cfg
+(/usr/share/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 130.
+Package color Info: Driver file: pdftex.def on input line 137.
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/cancel/cancel.sty
-Package: cancel 2000/03/12 v2.1 Cancel math terms
+(/usr/share/texmf-dist/tex/latex/cancel/cancel.sty
+Package: cancel 2013/04/12 v2.2 Cancel math terms
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/preprint/fullpage.sty
+(/usr/share/texmf-dist/tex/latex/preprint/fullpage.sty
 Package: fullpage 1999/02/23 1.1 (PWD)
 \FP@margin=\skip49
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/float/float.sty
+(/usr/share/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count101
-\float@exts=\toks27
+\float@exts=\toks28
 \float@box=\box29
-\@float@everytoks=\toks28
+\@float@everytoks=\toks29
 \@floatcapt=\box30
 )
-(/usr/local/texlive/2012/texmf-dist/tex/generic/ulem/ulem.sty
+(/usr/share/texmf-dist/tex/generic/ulem/ulem.sty
 \UL@box=\box31
 \UL@hyphenbox=\box32
 \UL@skip=\skip50
-\UL@hook=\toks29
+\UL@hook=\toks30
 \UL@height=\dimen118
 \UL@pe=\count102
 \UL@pixel=\dimen119
@@ -195,33 +204,33 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 Package: ulem 2012/05/18
 \ULdepth=\dimen120
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/setspace/setspace.sty
+(/usr/share/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2012/02/19 v3.2f Customizing captions (AR)
+(/usr/share/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2012/01/12 v1.4b caption3 kernel (AR)
+(/usr/share/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
 \captionmargin=\dimen121
 \captionmargin@=\dimen122
 \captionwidth=\dimen123
-\caption@indent=\dimen124
-\caption@parindent=\dimen125
-\caption@hangindent=\dimen126
+\caption@tempdima=\dimen124
+\caption@indent=\dimen125
+\caption@parindent=\dimen126
+\caption@hangindent=\dimen127
 )
 \c@ContinuedFloat=\count103
 Package caption Info: float package is loaded.
 Package caption Info: wrapfig package is loaded.
 )
-(/usr/local/texlive/2012/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2012/01/12 v1.1d Sub-captions (AR)
+(/usr/share/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
 \c@subfigure=\count104
 \c@subtable=\count105
 )
 (./mg_project_paper.aux)
-\openout1 = `mg_project_paper.aux'.
-
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 59.
 LaTeX Font Info:    ... okay on input line 59.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 59.
@@ -234,181 +243,188 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 59.
 LaTeX Font Info:    ... okay on input line 59.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 59.
 LaTeX Font Info:    ... okay on input line 59.
-
-(/usr/local/texlive/2012/texmf-dist/tex/context/base/supp-pdf.mkii
+ (/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count106
-\scratchdimen=\dimen127
+\scratchdimen=\dimen128
 \scratchbox=\box34
 \nofMPsegments=\count107
 \nofMParguments=\count108
-\everyMPshowfont=\toks30
+\everyMPshowfont=\toks31
 \MPscratchCnt=\count109
-\MPscratchDim=\dimen128
+\MPscratchDim=\dimen129
 \MPnumerator=\count110
 \makeMPintoPDFobject=\count111
-\everyMPtoPDFconversion=\toks31
-) (/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in PDF mode is detected.
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-(/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+\everyMPtoPDFconversion=\toks32
+) (/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/grfext.sty
+(/usr/share/texmf-dist/tex/latex/oberdiek/grfext.sty
 Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+(/usr/share/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
 Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
 ))
-(/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+(/usr/share/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+(/usr/share/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
 Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
 
-(/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+(/usr/share/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
 )))
 Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPEG
+,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
+(/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Try loading font information for U+msa on input line 62.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 62.
 
-(/usr/local/texlive/2012/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-<checker_disk_good_seg_1.png, id=1, 60.225pt x 60.225pt>
-File: checker_disk_good_seg_1.png Graphic file (type png)
+Underfull \hbox (badness 10000) in paragraph at lines 66--71
 
-<use checker_disk_good_seg_1.png>
-Package pdftex.def Info: checker_disk_good_seg_1.png used on input line 70.
-(pdftex.def)             Requested size: 93.95886pt x 93.95886pt.
-
-<checker_disk_good_seg_2.png, id=2, 60.225pt x 60.225pt>
-File: checker_disk_good_seg_2.png Graphic file (type png)
-
-<use checker_disk_good_seg_2.png>
-Package pdftex.def Info: checker_disk_good_seg_2.png used on input line 71.
-(pdftex.def)             Requested size: 93.95886pt x 93.95886pt.
-
-<spiral_bad_seg_1.png, id=3, 64.24pt x 64.24pt>
-File: spiral_bad_seg_1.png Graphic file (type png)
- <use spiral_bad_seg_1.png>
-Package pdftex.def Info: spiral_bad_seg_1.png used on input line 82.
-(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
-
-<spiral_bad_seg_2.png, id=4, 64.24pt x 64.24pt>
-File: spiral_bad_seg_2.png Graphic file (type png)
- <use spiral_bad_seg_2.png>
-Package pdftex.def Info: spiral_bad_seg_2.png used on input line 83.
-(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
-
-<spiral_bad_seg_3.png, id=5, 64.24pt x 64.24pt>
-File: spiral_bad_seg_3.png Graphic file (type png)
- <use spiral_bad_seg_3.png>
-Package pdftex.def Info: spiral_bad_seg_3.png used on input line 84.
-(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
-
-<spiral_good_seg_1.png, id=6, 64.24pt x 64.24pt>
-File: spiral_good_seg_1.png Graphic file (type png)
- <use spiral_good_seg_1.png>
-Package pdftex.def Info: spiral_good_seg_1.png used on input line 92.
-(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
-
-<spiral_good_seg_2.png, id=7, 64.24pt x 64.24pt>
-File: spiral_good_seg_2.png Graphic file (type png)
- <use spiral_good_seg_2.png>
-Package pdftex.def Info: spiral_good_seg_2.png used on input line 93.
-(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
-
-<peppers_seg_1.png, id=8, 75.1608pt x 75.1608pt>
-File: peppers_seg_1.png Graphic file (type png)
- <use peppers_seg_1.png>
-Package pdftex.def Info: peppers_seg_1.png used on input line 106.
-(pdftex.def)             Requested size: 93.95418pt x 93.95418pt.
-
-<peppers_seg_2.png, id=9, 50.1875pt x 50.1875pt>
-File: peppers_seg_2.png Graphic file (type png)
- <use peppers_seg_2.png>
-Package pdftex.def Info: peppers_seg_2.png used on input line 107.
-(pdftex.def)             Requested size: 93.96346pt x 93.96346pt.
-
-<peppers_seg_3.png, id=10, 50.1875pt x 50.1875pt>
-File: peppers_seg_3.png Graphic file (type png)
- <use peppers_seg_3.png>
-Package pdftex.def Info: peppers_seg_3.png used on input line 108.
-(pdftex.def)             Requested size: 93.96346pt x 93.96346pt.
-
-<peppers_seg_4.png, id=11, 50.1875pt x 50.1875pt>
-File: peppers_seg_4.png Graphic file (type png)
- <use peppers_seg_4.png>
-Package pdftex.def Info: peppers_seg_4.png used on input line 109.
-(pdftex.def)             Requested size: 93.96346pt x 93.96346pt.
-
-<peppers_seg_5.png, id=12, 50.1875pt x 50.1875pt>
-File: peppers_seg_5.png Graphic file (type png)
- <use peppers_seg_5.png>
-Package pdftex.def Info: peppers_seg_5.png used on input line 110.
-(pdftex.def)             Requested size: 93.96346pt x 93.96346pt.
+ []
 
 [1
 
-{/usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./check
-er_disk_good_seg_1.png> <./checker_disk_good_seg_2.png>] [2 <./spiral_bad_seg_1
-.png> <./spiral_bad_seg_2.png> <./spiral_bad_seg_3.png> <./spiral_good_seg_1.pn
-g> <./spiral_good_seg_2.png> <./peppers_seg_1.png> <./peppers_seg_2.png> <./pep
-pers_seg_3.png> <./peppers_seg_4.png> <./peppers_seg_5.png>] [3]
-(./mg_project_paper.aux) ) 
-Here is how much of TeX's memory you used:
- 3907 strings out of 493488
- 57640 string characters out of 3141326
- 117843 words of memory out of 3000000
- 7133 multiletter control sequences out of 15000+200000
- 12195 words of font info for 48 fonts, out of 3000000 for 9000
- 957 hyphenation exceptions out of 8191
- 38i,8n,38p,671b,444s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/local/texlive/2012/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr12.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr17.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr8.pfb>
-Output written on mg_project_paper.pdf (3 pages, 96598 bytes).
-PDF statistics:
- 60 PDF objects out of 1000 (max. 8388607)
- 26 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 92--93
+
+ []
+
+<checker_disk_good_seg_1.png, id=18, 60.225pt x 60.225pt>
+File: checker_disk_good_seg_1.png Graphic file (type png)
+
+<use checker_disk_good_seg_1.png>
+Package pdftex.def Info: checker_disk_good_seg_1.png used on input line 96.
+(pdftex.def)             Requested size: 93.95886pt x 93.95886pt.
+
+<checker_disk_good_seg_2.png, id=19, 60.225pt x 60.225pt>
+File: checker_disk_good_seg_2.png Graphic file (type png)
+
+<use checker_disk_good_seg_2.png>
+Package pdftex.def Info: checker_disk_good_seg_2.png used on input line 97.
+(pdftex.def)             Requested size: 93.95886pt x 93.95886pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 102--103
+
+ []
+
+<spiral_bad_seg_1.png, id=20, 64.24pt x 64.24pt>
+File: spiral_bad_seg_1.png Graphic file (type png)
+ <use spiral_bad_seg_1.png>
+Package pdftex.def Info: spiral_bad_seg_1.png used on input line 108.
+(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
+
+<spiral_bad_seg_2.png, id=21, 64.24pt x 64.24pt>
+File: spiral_bad_seg_2.png Graphic file (type png)
+ <use spiral_bad_seg_2.png>
+Package pdftex.def Info: spiral_bad_seg_2.png used on input line 109.
+(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
+
+<spiral_bad_seg_3.png, id=22, 64.24pt x 64.24pt>
+File: spiral_bad_seg_3.png Graphic file (type png)
+ <use spiral_bad_seg_3.png>
+Package pdftex.def Info: spiral_bad_seg_3.png used on input line 110.
+(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
+
+<spiral_good_seg_1.png, id=23, 64.24pt x 64.24pt>
+File: spiral_good_seg_1.png Graphic file (type png)
+ <use spiral_good_seg_1.png>
+Package pdftex.def Info: spiral_good_seg_1.png used on input line 118.
+(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
+
+<spiral_good_seg_2.png, id=24, 64.24pt x 64.24pt>
+File: spiral_good_seg_2.png Graphic file (type png)
+ <use spiral_good_seg_2.png>
+Package pdftex.def Info: spiral_good_seg_2.png used on input line 119.
+(pdftex.def)             Requested size: 93.95723pt x 93.95723pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 128--129
+
+ []
+
+[3] <peppers_seg_1.png, id=28, 75.1608pt x 75.1608pt>
+File: peppers_seg_1.png Graphic file (type png)
+ <use peppers_seg_1.png>
+Package pdftex.def Info: peppers_seg_1.png used on input line 132.
+(pdftex.def)             Requested size: 93.95418pt x 93.95418pt.
+
+<peppers_seg_2.png, id=29, 50.1875pt x 50.1875pt>
+File: peppers_seg_2.png Graphic file (type png)
+ <use peppers_seg_2.png>
+Package pdftex.def Info: peppers_seg_2.png used on input line 133.
+(pdftex.def)             Requested size: 93.96346pt x 93.96346pt.
+
+<peppers_seg_3.png, id=30, 50.1875pt x 50.1875pt>
+File: peppers_seg_3.png Graphic file (type png)
+ <use peppers_seg_3.png>
+Package pdftex.def Info: peppers_seg_3.png used on input line 134.
+(pdftex.def)             Requested size: 93.96346pt x 93.96346pt.
+
+<peppers_seg_4.png, id=31, 50.1875pt x 50.1875pt>
+File: peppers_seg_4.png Graphic file (type png)
+ <use peppers_seg_4.png>
+Package pdftex.def Info: peppers_seg_4.png used on input line 135.
+(pdftex.def)             Requested size: 93.96346pt x 93.96346pt.
+
+<peppers_seg_5.png, id=32, 50.1875pt x 50.1875pt>
+File: peppers_seg_5.png Graphic file (type png)
+ <use peppers_seg_5.png>
+Package pdftex.def Info: peppers_seg_5.png used on input line 136.
+(pdftex.def)             Requested size: 93.96346pt x 93.96346pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
+
+ []
+
+[4<./checker_disk_good_seg_1.png><./checker_disk_good_seg_2.png>] [5<./spiral_ba
+d_seg_1.png><./spiral_bad_seg_2.png><./spiral_bad_seg_3.png><./spiral_good_seg_1
+.png><./spiral_good_seg_2.png>] [6<./peppers_seg_1.png><./peppers_seg_2.png><./p
+eppers_seg_3.png><./peppers_seg_4.png><./peppers_seg_5.png>]
+(./mg_project_paper.aux))
+
+Here is how much of LuaTeX's memory you used:
+ 4199 strings out of 494693
+ 100000,128383 words of node,token memory allocated
+ 354 words of node memory still in use:
+   5 hlist, 2 vlist, 2 rule, 2 glue, 1 kern, 46 glue_spec, 1 write nodes
+   avail lists: 2:19,3:139,4:1020,5:237,6:3759,7:379,9:178,10:330
+ 7645 multiletter control sequences out of 65536+600000
+ 56 fonts using 2211607 bytes
+ 41i,8n,38p,1227b,457s stack positions out of 5000i,500n,10000p,200000b,100000s
+<</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><</usr/share/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><</usr/share/texmf-dist/font
+s/type1/public/amsfonts/cm/cmmi12.pfb><</usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi6.pfb><</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi8.pfb><</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><</usr/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><</usr/share/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr17.pfb><</usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb><</usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy8.pfb><</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on mg_project_paper.pdf (6 pages, 150625 bytes).
+
+PDF statistics: 89 PDF objects out of 1000 (max. 8388607)
+ 47 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 131072)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
