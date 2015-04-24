@@ -214,3 +214,6 @@ template double dl2norm<double>(const valarray<double>&, const unsigned,
 template void print_vector<unsigned>(vector<unsigned>& v);
 template void print_vector<unsigned>(const vector<unsigned>& v);
 
+template void print_vector<int>(vector<int>& v);
+template void print_vector<int>(const vector<int>& v);
+

@@ -713,6 +713,7 @@ vector<unsigned> coarsen_AMG(const list<image_level>::iterator it,
 // {{{
 // Coarsen the graph using something similar to the "standard" AMG coarsener
 //
+
    unsigned M = it->A.m;
 
    vector<unsigned> row_ptr(M+1,0), col_ind;
@@ -792,52 +793,170 @@ vector<unsigned> coarsen_AMG(const list<image_level>::iterator it,
       }
    }
 
-   // while any of the T[i] are zero
-   // equivalently, while not all T[i] > 0
+   //// while any of the T[i] are zero
+   //// equivalently, while not all T[i] > 0
+   //vector<unsigned>::iterator Teqz_it;
+   //auto Teqz_it_end = Teqz.end();
 
-   vector<unsigned>::iterator Teqz_it;
-   auto Teqz_it_end = Teqz.end();
+   //while ( Teqz.size() > 0 ) {
 
-   while ( Teqz.size() > 0 ) {
+   //   unsigned ml = 0;
+   //   Teqz_it = Teqz.begin(); // in case lambda is a vector of zeros
+   //   Teqz_it_end = Teqz.end();
+   //   for (auto it = Teqz.begin(); it != Teqz_it_end; ++it) { // TODO This is the bottleneck in the code.  I think this makes the code O(n^2) in num pixels
+   //      if ( lambda[*it] > ml ) {
+   //         Teqz_it = it;
+   //         ml = lambda[*it];
+   //      }
+   //   }
 
-      unsigned ml = 0;
-      Teqz_it = Teqz.begin(); // in case lambda is a vector of zeros
-      Teqz_it_end = Teqz.end();
-      for (auto it = Teqz.begin(); it != Teqz_it_end; ++it) {
-         if ( lambda[*it] > ml ) {
-            Teqz_it = it;
-            ml = lambda[*it];
-         }
-      }
+   //   unsigned jm = *Teqz_it;
+   //   T[jm] = 1;
+   //   Teqz.erase(Teqz_it);
+   //   lambda[jm] = 0;
 
-      unsigned jm = *Teqz_it;
-      T[jm] = 1;
-      Teqz.erase(Teqz_it);
-      lambda[jm] = 0;
+   //   vector<unsigned> K = strongly_influenced_by_j_trans(A_bar_trans, T, jm);
 
-      vector<unsigned> K = strongly_influenced_by_j_trans(A_bar_trans, T, jm);
+   //   vector<unsigned> H;
+   //   Teqz_it = Teqz.begin();
+   //   for (auto k_it = K.begin(); k_it != K.end(); ++k_it) {
+   //      
+   //      T[*k_it] = 2; // nodes in K become F-points
+   //      Teqz_it = lower_bound(Teqz_it, Teqz.end(), *k_it); // this will always find the value
+   //      Teqz_it = Teqz.erase(Teqz_it);
 
-      vector<unsigned> H;
-      Teqz_it = Teqz.begin();
-      for (auto k_it = K.begin(); k_it != K.end(); ++k_it) {
-         
-         T[*k_it] = 2; // nodes in K become F-points
-         Teqz_it = lower_bound(Teqz_it, Teqz.end(), *k_it); // this will always find the value
-         Teqz_it = Teqz.erase(Teqz_it);
+   //      lambda[*k_it] = 0;
 
-         lambda[*k_it] = 0;
+   //      H = strongly_influence_k(A_bar, T, *k_it);
+   //      for (auto h_it = H.begin(); h_it != H.end(); ++h_it) {
+   //         ++lambda[*h_it];
+   //      }
+   //   }
+   //}
 
-         H = strongly_influence_k(A_bar, T, *k_it);
-         for (auto h_it = H.begin(); h_it != H.end(); ++h_it) {
-            ++lambda[*h_it];
-         }
-      }
+
+   // Here's some stuff I SHAMELESSLY stole from pyamg's ruge_stuben.h
+   // XXX This implements the standard RS AMG coarsening.  This is slightly different than the coarsening presented by Inglis et al.  However, when I ran against the 60x60 checkered disk image with their parameters (row-sum strengths), I got the results they found.  So, maybe this algorithm will work.
+  
+   //for each value of lambda, create an interval of nodes with that value
+   // ptr - is the first index of the interval
+   // count - is the number of indices in that interval
+   // index to node - the node located at a given index
+   // node to index - the index of a given node
+   vector<unsigned> interval_ptr(M+1,0);
+   vector<unsigned> interval_count(M+1,0);
+   vector<unsigned> index_to_node(M);
+   vector<unsigned> node_to_index(M);
+
+   for (unsigned i = 0; i < M; ++i) {
+      interval_count[lambda[i]]++;
    }
+   for (unsigned i = 0, cumsum = 0; i < M; ++i) {
+      interval_ptr[i] = cumsum;
+      cumsum += interval_count[i];
+      interval_count[i] = 0;
+   }
+   for (unsigned i = 0; i < M; ++i) {
+      unsigned lambda_i = lambda[i];
+      unsigned index    = interval_ptr[lambda_i] + interval_count[lambda_i];
+      index_to_node[index] = i;
+      node_to_index[i]     = index;
+      ++interval_count[lambda_i];
+   }
+
+   //Now assign nodes to C/F in T, in descending order of lambda
+   unsigned jj_end = 0;
+   unsigned kk_end = 0;
+   for (int top_index = M - 1; top_index != -1; --top_index) {
+      unsigned i        = index_to_node[top_index];
+      unsigned lambda_i = lambda[i];
+
+
+      //remove i from its interval
+      --interval_count[lambda_i];
+
+      if ( T[i] == 2 )
+      {
+         continue;
+      } 
+      else 
+      {
+
+         T[i] = 1;
+
+         //For each j in S^T_i /\ U
+         jj_end = A_bar_trans.row_ptr[i+1];
+         for(unsigned jj = A_bar_trans.row_ptr[i]; jj < jj_end; ++jj){
+            unsigned j = A_bar_trans.col_ind[jj];
+
+            if ( T[j] == 0 ) {
+               T[j] = 2;
+
+               //For each k in S_j /\ U
+               kk_end = A_bar.row_ptr[j+1];
+               for (unsigned kk = A_bar.row_ptr[j]; kk < kk_end; ++kk) {
+                  unsigned k = A_bar.col_ind[kk];
+
+                  if ( T[k] == 0 ) {         
+                     //move k to the end of its current interval
+                     if ( lambda[k] >= M - 1 ) continue;
+
+                     unsigned lambda_k = lambda[k];
+                     unsigned old_pos  = node_to_index[k];
+                     unsigned new_pos  = interval_ptr[lambda_k] + interval_count[lambda_k] - 1;
+
+                     node_to_index[index_to_node[old_pos]] = new_pos;
+                     node_to_index[index_to_node[new_pos]] = old_pos;
+                     swap(index_to_node[old_pos], index_to_node[new_pos]);
+
+                     //update intervals
+                     interval_count[lambda_k]   -= 1;
+                     interval_count[lambda_k+1] += 1; //invalid write!
+                     interval_ptr[lambda_k+1]    = new_pos;
+
+                     //increment lambda_k
+                     ++lambda[k];
+                  }
+               }
+            }
+         }
+
+         //For each j in S_i /\ U
+         jj_end = A_bar.row_ptr[i+1];
+         for(unsigned jj = A_bar.row_ptr[i]; jj < jj_end; ++jj){
+            unsigned j = A_bar.col_ind[jj];
+            if ( T[j] == 0 ) {            //decrement lambda for node j
+               if ( lambda[j] == 0 ) continue;
+
+               //assert(lambda[j] > 0);//this would cause problems!
+
+               //move j to the beginning of its current interval
+               unsigned lambda_j = lambda[j];
+               unsigned old_pos  = node_to_index[j];
+               unsigned new_pos  = interval_ptr[lambda_j]; 
+
+               node_to_index[index_to_node[old_pos]] = new_pos;
+               node_to_index[index_to_node[new_pos]] = old_pos;
+               std::swap(index_to_node[old_pos],index_to_node[new_pos]);
+
+               //update intervals
+               interval_count[lambda_j]   -= 1;
+               interval_count[lambda_j-1] += 1;
+               interval_ptr[lambda_j]     += 1;
+               interval_ptr[lambda_j-1]    = interval_ptr[lambda_j] - interval_count[lambda_j-1];
+
+               //decrement lambda_j
+               --lambda[j];
+            }
+         }
+      }
+   }     
+
 
    // Assign C-points
    vector<unsigned> C;
    for (unsigned i = 0; i < T.size(); ++i) {
-      if ( T[i] == 1 ) C.push_back(i); // XXX: valgrind shows this (maybe!) as uninitialized and gives an error message
+      if ( T[i] == 1 ) C.push_back(i); // XXX: valgrind shows this (maybe!) as uninitialized and gives an error message; not sure I belive that..
    }
 
    if ( C.size() == 0 ) {
@@ -1322,7 +1441,7 @@ void write_seg_images(const cv::Mat& orig_img, const matrix_crs<double>& U,
 void runtime_scaling(const cv::Mat& img, seg_params& params, const string& out_filename) {
 
    cv::Mat img_resize;
-   unsigned num_imgs = 20, num_samples = 1;
+   unsigned num_imgs = 20, num_samples = 5;
    unsigned max_size = img.rows, min_size = 10, pix_lin_step;
    vector<unsigned> img_sizes(num_imgs,0);
 
@@ -1458,10 +1577,11 @@ int main(void) {
    //U = image_seg(img, params);
    //write_seg_images(img, U, "gen_imgs/spiral_64", 1);
  
-   img = load_image("../test_imgs/spiral_256.png");
-   set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2);
-   U = image_seg(img, params);
-   write_seg_images(img, U, "gen_imgs/spiral_256", 1);
+   //img = load_image("../test_imgs/spiral_256.png");
+   ////set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2); // Inglis coarsening
+   //set_params(params, 10., 1., 10., 0.025, 0.10, 0.15, 5, 2); // RS coarsening 
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/spiral_256", 1);
   
    // Peppers
    //////////
@@ -1526,13 +1646,15 @@ int main(void) {
    
    // Algorithm timing stuff
    // We're currently sitting on a nice O(n^2) in the number of pixels.  This is almost entirely due to something slow thhat I'm doing in build_interp and coarsenAMG.  These two account for almost all of the cost of running the code!
-   set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1);
+   //set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1); // Inglis coarsening
+   set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1); // RS coarsening
    img = load_image("../test_imgs/peppers.jpg");
    
-   //set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2);
+   //set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2); // Inglis coarsening
+   //set_params(params, 10., 1., 10., 0.025, 0.10, 0.15, 5, 2); // RS coarsening 
    //img = load_image("../test_imgs/spiral_512.png");
    
-   //runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
+   runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
 
 
    return 0;
