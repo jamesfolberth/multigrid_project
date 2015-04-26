@@ -6,8 +6,8 @@ CPP=g++ -fdiagnostics-color=auto
 SHELL=/usr/bin/bash
 
 #CPPFLAGS=-Wall -Wpedantic -std=c++11 -g -march=native
-CPPFLAGS=-Wall -Wpedantic -std=c++11 -pg -fprofile-arcs -ftest-coverage -Og -march=native
-#CPPFLAGS=-Wall -Wpedantic -std=c++11 -O2 -march=native
+#CPPFLAGS=-Wall -Wpedantic -std=c++11 -pg -fprofile-arcs -ftest-coverage -Og -march=native
+CPPFLAGS=-Wall -Wpedantic -std=c++11 -O2 -march=native
 
 LDFLAGS=
 LDLIBS=-lc -lm

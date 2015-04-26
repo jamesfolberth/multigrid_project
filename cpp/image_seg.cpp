@@ -1622,12 +1622,11 @@ int main(void) {
  
    // Two C. Elegans 
    // Can we tell the two worms apart?
-   ////set_params(params, 1., 20., 2., 0.05, 0.05, 0.10, 7, 1); // this is pretty close
-   ////set_params(params, 2., 23., 2., 0.05, 0.05, 0.10, 7, 1); // this finds a disjoint segment.  interesting
-   //set_params(params, 1.5, 20., 1., 0.05, 0.05, 0.10, 7, 1); // this is pretty good.
-   //img = load_image("../test_imgs/two_c_elegans.jpg");
-   //U = image_seg(img, params);
-   //write_seg_images(img, U, "gen_imgs/two_c_elegans", 1);
+   //set_params(params, 2., 23., 2., 0.05, 0.05, 0.10, 7, 1);
+   set_params(params, 2., 25., 2., 0.05, 0.05, 0.10, 7, 1);
+   img = load_image("../test_imgs/two_c_elegans.jpg");
+   U = image_seg(img, params);
+   write_seg_images(img, U, "gen_imgs/two_c_elegans", 1);
 
 
    
@@ -1641,7 +1640,7 @@ int main(void) {
    set_params(params, 10., 1., 10., 0.025, 0.10, 0.15, 5, 2); // RS coarsening 
    img = load_image("../test_imgs/spiral_512.png");
    
-   runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
+   //runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
 
 
    return 0;

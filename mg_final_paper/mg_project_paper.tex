@@ -17,10 +17,7 @@
 %%% ----------------------------------------------------------------------
 
 \documentclass[12pt]{article}%
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsbsy}
-\usepackage{amsthm}
+\usepackage{amsmath, amssymb, amsbsy, amsthm}
 \usepackage{epsfig}
 \usepackage{wrapfig}
 \usepackage{color,cancel}
@@ -30,6 +27,7 @@
 \usepackage{setspace}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{hyperref}
 
 \DeclareMathOperator{\diam}{diam}
 \newcommand{\vecb}[1]{\mathbf{#1}}
@@ -40,8 +38,6 @@
 %\evensidemargin=0.5in
 %\textwidth=6.in
 %\textheight=9.1in
-
-\bibliographystyle{acm}
 
 \date{}
 
@@ -84,18 +80,22 @@ Next the graph is coarsened repeatedly until everything has been segmented. Bloc
 \vspace{5mm} \\
 Once the coarsest level is reached, the upward part of the V-cycle begins, the goal being to uniquely assign every finest-level pixel to one of the segments.  Segments that are acquired on the coarsest level relate to overlapping blocks on the top level.  Since a pixel may originally be classified as belonging to a certain block at the finest level and then later be reclassified at the coarsest level, it is vital that the salient blocks are retained throughout the coarse level progression so that that original relationship is maintained throughout the V-cycle. Once all segments have been found, nodes on the next finer level are assigned to segments on the coarser level according to weights in the interpolation matrix. This is repeated up to the original finest level. On each level, the overlap between segments is refined by the following threshold determining by a sharpening threshold.  Nodes that belong for more than 85\% to a segment are assigned 100\% to that segment, while nodes that belong for less than 15\% to a segment are fully decoupled from that segment. Once the algorithm reaches the finest level of the V-cycle, a post-processing step uniquely assigns each pixel to a segment.
 
+
+% TODO we now have two different implementations.  We must be very clear which method we used to produce each segmentation.
 \section{Results}
+
+Our code is available online at \url{https://github.com/jamesfolberth/multigrid_project}.\\
 
 In this section, we demonstrate the efficacy of the segmentation algorithm. We first demonstrate in Figure~\ref{fig:disk} the improvement in segmentation accuracy obtained by taking multilevel intensity variance into account. The image in Figure~\ref{fig:disk} contains two segments which have different textures (variance within the segment) but identical average intensities. When we do not take multilevel variance into account, the algorithm detects only one segment. When we rescale the weighting matrix using the variance of each block, however, the two segments are successfully detected.\\
 
-% TODO Nathan, did you use the row-sum or max-element strong connection method for these images?
-Regarding the checkered disk image, it should be noted that Inglis et al. says they use the row-sum method to determine the strong connections with using the AMG graph coarsening.  We were unable to recreate their results using their parameters with the row-sum method, but if we used the more standard max-element method to determine the strong connections, their parameters and our implementation produced the desired results.\\
+% Nathan used the max-element strong connection method for these images.
+Regarding the checkered disk image, it should be noted that \cite{inglis:2010} states that the off-diagonal row sum is used to determine the strong connections when coarsening the graph.  We were unable to recreate their results using their parameters with the off-diagonal row sum method, but if we instead used the more standard max-element method to determine the strong connections, their parameters and our implementation produced the desired results.\\
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.2\textwidth,height=0.2\textwidth]{checker_disk_good_seg_1.png} \hspace{.45cm}
 \includegraphics[width=0.2\textwidth,height=0.2\textwidth]{checker_disk_good_seg_2.png}
-\caption{Without taking multilevel variance into account, the algorithm detected only one segment (the entire image). Rescaling the weighted graph using multilevel variance results in the segmentation shown above. Parameters used: $n = 60$, $\alpha = 10$, $\tilde{\alpha} = 10$, $\beta = 10$, $\theta = 0.1$, $\gamma = 0.1$, $d_1 = 0.15$, $\sigma = 5$, $\rho = 1$.}
+\caption{Without taking multilevel variance into account, the algorithm detected only one segment (the entire image). Rescaling the weighted graph using multilevel variance results in the segmentation shown above. Parameters used: $n = 60$, $\alpha = 10$, $\tilde{\alpha} = 10$, $\beta = 10$, $\theta = 0.1$, $\gamma = 0.1$, $d_1 = 0.15$, $\sigma = 5$, $\rho = 1$, and the coarsening presented in \cite{inglis:2010}.  Implementation: C++.}
 \label{fig:disk}
 \end{figure}
 
@@ -120,7 +120,7 @@ Next, we demonstrate the effect of making the saliency measure invariant of the 
 \subcaption{Segmentation with scale invariant saliency measure.}
 \end{subfigure}
 
-\caption{Parameters used: $n = 64$, $\alpha = 10$, $\tilde{\alpha} = 10$, $\beta = 10$, $\theta = 0.09$, $\gamma = 0.08$, $d_1 = 0.15$, $\sigma = 7$, $\rho = 1$.}
+\caption{Parameters used: $n = 64$, $\alpha = 10$, $\tilde{\alpha} = 10$, $\beta = 10$, $\theta = 0.09$, $\gamma = 0.08$, $d_1 = 0.15$, $\sigma = 7$, $\rho = 1$, and the coarsening presented in \cite{inglis:2010}.  Implementation: Julia.}
 \label{fig:spiral}
 
 \end{figure}
@@ -134,9 +134,22 @@ The remaining figures demonstrate the performance of the algorithm with more com
 \includegraphics[width=0.2\textwidth,height=0.2\textwidth]{peppers_seg_3.png} \\ \vspace{.45cm}
 \includegraphics[width=0.2\textwidth,height=0.2\textwidth]{peppers_seg_4.png} \hspace{.45cm}
 \includegraphics[width=0.2\textwidth,height=0.2\textwidth]{peppers_seg_5.png}
-\caption{Parameters used: $n = 50$, $\alpha = 50$, $\tilde{\alpha} = 4$, $\beta = 10$, $\theta = 0.1$, $\gamma = 0.15$, $d_1 = 0.15$, $\sigma = 5$, $\rho = 1$.}
+\caption{Parameters used: $n = 50$, $\alpha = 50$, $\tilde{\alpha} = 4$, $\beta = 10$, $\theta = 0.1$, $\gamma = 0.15$, $d_1 = 0.15$, $\sigma = 5$, $\rho = 1$, and the coarsening presented in \cite{inglis:2010}.  Implementation: Julia.}
 \label{fig:peppers}
 \end{figure}
+
+
+\begin{figure}[ht]
+   \centering
+   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0000.png}
+   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0001.png}
+   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0002.png}
+   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0003.png}
+   % 2., 25., 2., 0.05, 0.05, 0.10, 7, 1)
+   \caption{This is a microscope image of anterior portion of two C. Elegans.  Parameters used: $n = 198$, $\alpha = 2$, $\tilde{\alpha} = 25$, $\beta = 2$, $\theta = 0.05$, $\gamma = 0.05$, $d_1 = 0.1$, $\sigma = 7$, $\rho = 1$, and the standard RS AMG coarsener.  Implementation: C++.}
+   \label{fig:c_elegans}
+\end{figure}
+
 
 One weakness of the algorithm, mentioned by the authors, is the large number of parameters and difficulty in choosing them correctly. Currently, parameters are chosen by guessing and checking, which obviously presents a large obstacle to the algorithm's robustness and usefulness in industrial applications. There are, however, some general guidelines that can be used to improve the segmentation accuracy.\\
 
@@ -150,13 +163,29 @@ One weakness of the algorithm, mentioned by the authors, is the large number of 
 
 \end{enumerate}
 
+There are further differences between our implementation of Inglis et al.'s algorithm and their reported results.  We have already mentioned that we were unable to reproduce their results for the checkered disk image with their parameters.  We initially thought that they had simply used the maximal off-diagonal element to determine strong connections, where as they report using the off-diagonal row sum.  However, when performing algorithm runtime scaling experiments, our C++ implementation scaled \emph{quadratically} with the total number of pixels, wheras Inglis et al. report that their implementation scales \emph{linearly} with the number of pixels.  By profiling the C++ implementation, we found that the AMG-like graph coarsening was the bottleneck; indeed, it seems that, as written, the graph coarsening presented in \cite{inglis:2010} scales quadratically with the number of pixels (specifically, step 6, part a of the coarsening function).  By pre-sorting the vector of node weights $\lambda$, we might be able to reduce this cost to something like $\mathcal{O}(n\log n)$, but we have not designed or verified this modification; regardless, this is still sub-optimal scaling compared to the linear scaling presented in \cite{inglis:2010}.\\
 
-% TODO let's use BibTeX
-\section{References}
-\begin{enumerate}
-\item R. Basri, A. Brandt, and E. Sharon, ``Fast Multiscale Image Segmentation," The Weizmann Institute of Science, Rehov ot, Israel, 2000.
-\item G. Sanders, T. Inglis, H. De Sterck, H. Djambazian, R. Sladek, S. Sundararajan, and T. Hudson, ``Mulitlevel Space-Time Aggregation for Bright Field Cell Microscopy Segmentation and Tracking," \textit{International Journal of Biomedical Imaging}, vol. 2010, article ID 582760, 2010.
-\end{enumerate}
+We ``hacked'' PyAMG's implementation \cite{pyamg:2011} of standard Ruge-St\"uben AMG into our code.  This, of course, scales linearly with problem size.  Coincidently, using RS AMG instead of Inglis et al.'s coarsening resulted in obtaining the proper segmentation of the checkered disk image using the same parameters.  Since we were unable to reproduce the desired results with our implementation of Inglis et al.'s coarsener, but were able to reproduce the results with the ``wrong'' coarsener (RS AMG), we speculate that there are further errors in our implementations, or perhaps that there is a typographical error in the coarsening algorithm presented in \cite{inglis:2010}.\\  % is this too bold a claim?
+
+We performed a simple runtime scaling experiment to determine how our implementation scaled with problem size.  For this experiment, we use the Ruge-St\"uben AMG coarsener, not the coarsener presented in \cite{inglis:2010}.  In Figure \ref{fig:runtime_scaling} we have plotted the runtime of our C++ implementation versus the total number of pixels for the spiral image.  It is clear that the implementation scales linearly with problem size.  We start with a 512 by 512 image, resize using OpenCV \cite{opencv:2000}, and measure the runtime of running segmentation on the resized image five times.  These computations were done on an Intel(R) Core(TM) i5-2467M CPU @ 1.60GHz.\\
+
+
+\begin{figure}[ht]
+   \centering
+   \includegraphics[width=0.7\textwidth]{runtime_scaling_spiral_512_james.pdf}
+   \caption{Scaling of the runtime our C++ implementation versus the total number of pixels.  Implementation: C++.}
+   \label{fig:runtime_scaling}
+\end{figure}
+
+
+\bibliographystyle{siam}
+\bibliography{mg_img}
+
+%\section{References}
+%\begin{enumerate}
+%\item R. Basri, A. Brandt, and E. Sharon, ``Fast Multiscale Image Segmentation," The Weizmann Institute of Science, Rehov ot, Israel, 2000.
+%\item G. Sanders, T. Inglis, H. De Sterck, H. Djambazian, R. Sladek, S. Sundararajan, and T. Hudson, ``Mulitlevel Space-Time Aggregation for Bright Field Cell Microscopy Segmentation and Tracking," \textit{International Journal of Biomedical Imaging}, vol. 2010, article ID 582760, 2010.
+%\end{enumerate}
 
 \end{document}
 
