@@ -70,6 +70,75 @@
 
 \begin{document}
 
+\title{Multilevel Aggregation for Image Segmentation}
+\author[]{Rachel Tutmaher, James Folberth, and Nathan  Heavner\\}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Results: Texture Distinction}
+\begin{itemize}
+\item Initially, weights in the coupling matrix $A$ are based on the average intensity of the block
+\item The authors' algorithm scales the weights according to the similarities between two blocks' multilevel variance.
+\item This scaling makes it more likely for adjacent blocks with similar textures to be grouped together in subsequent levels.
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.2\textwidth,height=0.2\textwidth]{checker_disk_60.png} \hspace{.45cm}
+\includegraphics[width=0.2\textwidth,height=0.2\textwidth]{checker_disk_good_seg_1.png} \hspace{.45cm}
+\includegraphics[width=0.2\textwidth,height=0.2\textwidth]{checker_disk_good_seg_2.png}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Results: Scale Invariant Saliency Measure}
+
+\begin{itemize}
+\item The saliency measure $\displaystyle{\Gamma_i^{[r]} = \frac{L_{ii}^{[r]}}{(1/2)W_{ii}^{[r]}}}$ can be interpreted as the sum of the coupling coefficients along the border of block $i$ divided by the sum of the coupling coefficients along connections internal to block $i$. 
+\item Observe that this saliency measure is neither shape nor scale invariant.
+\item The authors make the saliency measure scale invariant by normalizing the weighted boundary length by dividing it by the unweighted boundary length; similarly for the area.
+\end{itemize}
+
+\begin{figure}[ht]
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_bad_seg_1.png} \hspace{.45cm}
+\includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_bad_seg_2.png} \hspace{.45cm}
+\includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_bad_seg_3.png}
+\subcaption{Segmentation without scale invariant saliency measure.}
+\end{subfigure}
+
+\vspace{.45cm}
+
+\begin{subfigure}[b]{\textwidth}
+\centering
+\includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_good_seg_1.png} \hspace{.45cm}
+\includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_good_seg_2.png}
+\subcaption{Segmentation with scale invariant saliency measure.}
+\end{subfigure}
+
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Results}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.2\textwidth,height=0.2\textwidth]{peppers_seg_1.png} \hspace{.45cm}
+\includegraphics[width=0.2\textwidth,height=0.2\textwidth]{peppers_seg_2.png} \hspace{.45cm}
+\includegraphics[width=0.2\textwidth,height=0.2\textwidth]{peppers_seg_3.png} \\ \vspace{.45cm}
+\includegraphics[width=0.2\textwidth,height=0.2\textwidth]{peppers_seg_4.png} \hspace{.45cm}
+\includegraphics[width=0.2\textwidth,height=0.2\textwidth]{peppers_seg_5.png}
+\end{figure}
+
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%% BEGIN COMMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{comment}
