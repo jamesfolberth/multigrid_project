@@ -836,7 +836,7 @@ vector<unsigned> coarsen_AMG(const list<image_level>::iterator it,
 
 
    // Here's some stuff I SHAMELESSLY stole from pyamg's ruge_stuben.h
-   // XXX This implements the standard RS AMG coarsening.  This is slightly different than the coarsening presented by Inglis et al.  However, when I ran against the 60x60 checkered disk image with their parameters (row-sum strengths), I got the results they found.  So, maybe this algorithm will work.
+   // XXX This implements the standard RS AMG coarsening.  This is slightly different than the coarsening presented by Inglis et al.  However, when I ran against the 60x60 checkered disk image with their parameters (row-sum strengths), I got exactly the results they found!  I don't have a "strong" explanation for this inconsistency.
   
    //for each value of lambda, create an interval of nodes with that value
    // ptr - is the first index of the interval
@@ -1525,12 +1525,12 @@ int main(void) {
    // Checker Disk
    ///////////////
    // Inglis et al.'s parameters
-   //set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1);
-   ////set_params(params, 20., 10., 10., 0.1, 0.1, 0.15, 5, 1); // a bit more contrast
-   ////set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1); // change theta to use max-row or row-sum
-   //img = load_image("../test_imgs/checker_disk_60.png");
-   //U = image_seg(img, params);
-   //write_seg_images(img, U, "gen_imgs/checker_disk_60", 1);
+   set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1);
+   //set_params(params, 20., 10., 10., 0.1, 0.1, 0.15, 5, 1); // a bit more contrast
+   //set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1); // change theta to use max-row or row-sum
+   img = load_image("../test_imgs/checker_disk_60.png");
+   U = image_seg(img, params);
+   write_seg_images(img, U, "gen_imgs/checker_disk_60", 1);
  
    //img = load_image("../test_imgs/checker_disk_120.png");
    //U = image_seg(img, params);
@@ -1623,10 +1623,10 @@ int main(void) {
    // Two C. Elegans 
    // Can we tell the two worms apart?
    //set_params(params, 2., 23., 2., 0.05, 0.05, 0.10, 7, 1);
-   set_params(params, 2., 25., 2., 0.05, 0.05, 0.10, 7, 1);
-   img = load_image("../test_imgs/two_c_elegans.jpg");
-   U = image_seg(img, params);
-   write_seg_images(img, U, "gen_imgs/two_c_elegans", 1);
+   //set_params(params, 2., 25., 2., 0.05, 0.05, 0.10, 7, 1);
+   //img = load_image("../test_imgs/two_c_elegans.jpg");
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/two_c_elegans", 1);
 
 
    
@@ -1641,7 +1641,6 @@ int main(void) {
    img = load_image("../test_imgs/spiral_512.png");
    
    //runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
-
 
    return 0;
 }

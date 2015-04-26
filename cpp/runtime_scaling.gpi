@@ -13,7 +13,7 @@ set style line 1 linecolor "black" pointtype 7;
 
 #plot "gen_imgs/runtime_scaling.out" using 1:(($2)/1000) with linespoints linestyle 1
 
-#f(x) = a*(x-b)**2 + c
+#f(x) = a*(x-b)**2
 f(x) = a*x
 fit f(x) "gen_imgs/runtime_scaling.out" using 1:(($2)/1000) via a
 plot "gen_imgs/runtime_scaling.out" using 1:(($2)/1000) with linespoints linestyle 1, f(x) w l

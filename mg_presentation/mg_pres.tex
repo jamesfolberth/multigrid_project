@@ -11,11 +11,14 @@
  \insertshorttitle\hfill%
  \insertframenumber\,/\,\inserttotalframenumber}
 
+% Remove Navigation Symbols
+\usenavigationsymbolstemplate{}
+
 
 %\usepackage{times}
 \usepackage[english]{babel}
 
-\usepackage[latin1]{inputenc}
+%\usepackage[latin1]{inputenc}
 \usepackage{graphicx}
 \usepackage{media9}
     \usepackage[all]{xy}
@@ -34,8 +37,8 @@
     \usepackage{amssymb}
     \usepackage{mathrsfs}
     \usepackage{mathdots}
-\usepackage{caption}
-\usepackage{subcaption}
+%\usepackage{caption} % beamer defines \caption
+%\usepackage{subcaption} % this fails to compile with texlive.  We don't really need figure captions in a presentation.  The "readers" don't need to know the exact parameters and all that like in the paper.
 \usepackage{verbatim}
 
 \newtheorem*{proposition}{Proposition}
@@ -77,6 +80,13 @@
 \titlepage
 \end{frame}
 
+\begin{frame}{TODO}
+   \begin{itemize}
+      \item We need to introduce the Inglis 2010 paper and the name "Inglis" so we can refer to it later.  This just makes referencing a bit more pleasant.
+      \item Do we want to add segmentation of C. K.?
+   \end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{Results: Texture Distinction}
 \begin{itemize}
@@ -104,24 +114,19 @@
 \end{itemize}
 
 \begin{figure}[ht]
-
-\begin{subfigure}[b]{\textwidth}
 \centering
 \includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_bad_seg_1.png} \hspace{.45cm}
 \includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_bad_seg_2.png} \hspace{.45cm}
 \includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_bad_seg_3.png}
-\subcaption{Segmentation without scale invariant saliency measure.}
-\end{subfigure}
+~\\Segmentation without scale invariant saliency measure.
+\end{figure}
+%\vspace{.45cm}
 
-\vspace{.45cm}
-
-\begin{subfigure}[b]{\textwidth}
+\begin{figure}[ht]
 \centering
 \includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_good_seg_1.png} \hspace{.45cm}
 \includegraphics[width=0.15\textwidth,height=0.15\textwidth]{spiral_good_seg_2.png}
-\subcaption{Segmentation with scale invariant saliency measure.}
-\end{subfigure}
-
+~\\Segmentation with scale invariant saliency measure.
 \end{figure}
 
 \end{frame}
@@ -139,6 +144,80 @@
 \end{figure}
 
 \end{frame}
+
+
+\begin{frame}{Results}
+   C. Elegans.
+
+   \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.3\textwidth]{two_c_elegans_seg_blend_0000.png} \hspace{0.45cm}
+      \includegraphics[width=0.3\textwidth]{two_c_elegans_seg_blend_0001.png} \\[0.56cm]
+      \includegraphics[width=0.3\textwidth]{two_c_elegans_seg_blend_0002.png} \hspace{0.45cm}
+      \includegraphics[width=0.3\textwidth]{two_c_elegans_seg_blend_0003.png}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{A few implementation details}
+   Our implementation of the segmentation algorithm failed the checkered disk test case!  The authors of the segmentation algorithm specified parameters to use.
+
+   \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_segAMG_row_sum_0000.png} \hspace{0.45cm}
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_segAMG_row_sum_0001.png} \hspace{0.45cm}
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_segAMG_row_sum_0002.png} \hspace{0.45cm}
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_segAMG_row_sum_0003.png}
+      ~\\Inglis coarsener with off-diagonal row sum strengths.
+   \end{figure}
+
+   \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_RSAMG_row_sum_0000.png} \hspace{0.45cm}
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_RSAMG_row_sum_0001.png} 
+      ~\\Ruge-St\"uben coarsener with off-diagonal row sum strengths.
+   \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{A few implementation details}
+   Our implementation of the segmentation algorithm failed the checkered disk test case!  The authors of the segmentation algorithm specified parameters to use.
+
+   \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_segAMG_max_el_0000.png} \hspace{0.45cm}
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_segAMG_max_el_0001.png}
+      ~\\Inglis coarsener with maximum off-diagonal element strengths.
+   \end{figure}
+
+   \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_RSAMG_row_sum_0000.png} \hspace{0.45cm}
+      \includegraphics[width=0.2\textwidth]{checker_disk_60_seg_blend_RSAMG_row_sum_0001.png} 
+      ~\\Ruge-St\"uben coarsener with off-diagonal row sum strengths.
+   \end{figure}
+
+\end{frame}
+
+
+
+
+\begin{frame}{A few implementation details}
+   The segmentation algorithm uses a graph coarsener that is very similar to Ruge-St\"uben AMG.  The coarsener in RS AMG scales linearly with problem size.  The segmentation algorithm, as written, appears to scale \emph{quadratically} with problem size!\\[0.5cm]
+
+   \begin{minipage}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{runtime_scaling_segAMG_spiral_512_james.pdf}
+      ~\\Inglis coarsening.
+   \end{minipage}
+   \hspace{0.05\textwidth}
+   \begin{minipage}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{runtime_scaling_RSAMG_spiral_512_james.pdf}
+      ~\\Ruge-St\"uben coarsening.
+   \end{minipage}
+
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%% BEGIN COMMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{comment}

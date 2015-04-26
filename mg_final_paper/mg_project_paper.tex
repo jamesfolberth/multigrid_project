@@ -141,9 +141,9 @@ The remaining figures demonstrate the performance of the algorithm with more com
 
 \begin{figure}[ht]
    \centering
-   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0000.png}
-   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0001.png}
-   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0002.png}
+   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0000.png} \hspace{0.45cm}
+   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0001.png} \hspace{0.45cm}
+   \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0002.png} \hspace{0.45cm}
    \includegraphics[width=0.2\textwidth]{two_c_elegans_seg_blend_0003.png}
    % 2., 25., 2., 0.05, 0.05, 0.10, 7, 1)
    \caption{This is a microscope image of anterior portion of two C. Elegans.  Parameters used: $n = 198$, $\alpha = 2$, $\tilde{\alpha} = 25$, $\beta = 2$, $\theta = 0.05$, $\gamma = 0.05$, $d_1 = 0.1$, $\sigma = 7$, $\rho = 1$, and the standard RS AMG coarsener.  Implementation: C++.}
@@ -172,8 +172,8 @@ We performed a simple runtime scaling experiment to determine how our implementa
 
 \begin{figure}[ht]
    \centering
-   \includegraphics[width=0.7\textwidth]{runtime_scaling_spiral_512_james.pdf}
-   \caption{Scaling of the runtime our C++ implementation versus the total number of pixels.  Implementation: C++.}
+   \includegraphics[width=0.7\textwidth]{runtime_scaling_RSAMG_spiral_512_james.pdf}
+   \caption{Scaling of the runtime versus the total number of pixels using Ruge-St\"uben coarsening.  Implementation: C++.}
    \label{fig:runtime_scaling}
 \end{figure}
 
