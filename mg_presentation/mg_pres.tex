@@ -98,7 +98,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{``Multilevel Space-Time Aggregation for Bright Field Cell Microscopy Segmentation and Tracking." \\ { \small Tiffany Inglis, et.al. \textit{International Journal of Biomedical Imaging,} Volume 2010, Article ID 582760}
+\frametitle{``Multilevel Space-Time Aggregation for Bright Field Cell Microscopy Segmentation and Tracking." \\ { \small Tiffany Inglis, et al. \textit{International Journal of Biomedical Imaging,} Volume 2010, Article ID 582760}
  }
 \begin{itemize}
 \item Large amounts of data.
@@ -118,9 +118,9 @@
 \begin{minipage}{.5\textwidth}
 \begin{itemize}
 \item Each pixel in image is scaled so that maximum intensity value is 1.
-\item Problem is analogous to that of a weighted undirected graph: Pixels represent nodes, edge determined by similarity of intensity with neighboring nodes.
+\item Problem is analogous to segmentation of a weighted undirected graph: Pixels represent nodes, edge determined by similarity of intensity with neighboring nodes.
 \item Edge weights determined by coupling matrix: 
-$$ A_{ij} = \left\{ \begin{array}{lr} e^{\alpha \left| I_i^{[1]}-I_j^{[1]} \right|} & \text{if i, j are neighbors} \\
+$$ A_{ij} = \left\{ \begin{array}{lr} e^{-\alpha \left| I_i^{[1]}-I_j^{[1]} \right|} & \text{if i, j are neighbors} \\
 0 & \text{else} \end{array} \right. $$
 \item Pixels recursively grouped: At any point blocks that are sufficiently different from their neighbors are identified as "salient" segments.
 \item Stop coarsening when all blocks are "salient"
@@ -263,6 +263,25 @@ $$ A_{ij} = \left\{ \begin{array}{lr} e^{\alpha \left| I_i^{[1]}-I_j^{[1]} \righ
    \begin{minipage}{0.45\textwidth}
       \includegraphics[width=\textwidth]{runtime_scaling_RSAMG_spiral_512_james.pdf}
       ~\\Ruge-St\"uben coarsening.
+   \end{minipage}
+
+\end{frame}
+
+
+\begin{frame}{Questions?}
+
+   Inglis et al., ``Multilevel space-time aggregation for bright field cell microscopy segmentation and tracking'', International Journal of Biomedical Imaging, (2010).\\[1cm]
+
+   Questions?\\[.5cm]
+
+   \begin{minipage}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{ck_seg_blend_0001.png} \hspace{0.45cm}
+   \end{minipage}
+   \hspace{0.05\textwidth}
+   \begin{minipage}{0.45\textwidth}
+      %\includegraphics[width=0.4\textwidth]{ck_seg_blend_0006.png}
+      \includegraphics[width=\textwidth]{xkcd_fourier.jpg}\\
+      Credit: xkcd.com, \# 26
    \end{minipage}
 
 \end{frame}

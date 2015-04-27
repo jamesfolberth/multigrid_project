@@ -1525,12 +1525,12 @@ int main(void) {
    // Checker Disk
    ///////////////
    // Inglis et al.'s parameters
-   set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1);
-   //set_params(params, 20., 10., 10., 0.1, 0.1, 0.15, 5, 1); // a bit more contrast
-   //set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1); // change theta to use max-row or row-sum
-   img = load_image("../test_imgs/checker_disk_60.png");
-   U = image_seg(img, params);
-   write_seg_images(img, U, "gen_imgs/checker_disk_60", 1);
+   //set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1);
+   ////set_params(params, 20., 10., 10., 0.1, 0.1, 0.15, 5, 1); // a bit more contrast
+   ////set_params(params, 10., 10., 10., 0.1, 0.1, 0.15, 5, 1); // change theta to use max-row or row-sum
+   //img = load_image("../test_imgs/checker_disk_60.png");
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/checker_disk_60", 1);
  
    //img = load_image("../test_imgs/checker_disk_120.png");
    //U = image_seg(img, params);
@@ -1605,7 +1605,9 @@ int main(void) {
 
    // CK
    //img = load_image("../test_imgs/ck.png");
-   //set_params(params, 90., 5., 5., 0.10, 0.15, 0.15, 5, 1);
+   ////set_params(params, 90., 5., 5., 0.10, 0.15, 0.15, 5, 1);
+   ////set_params(params, 90., 5., 5., 0.10, 0.17, 0.15, 5, 1);
+   //set_params(params, 90., 5., 5., 0.10, 0.17, 0.10, 5, 1);
    //U = image_seg(img, params);
    //write_seg_images(img, U, "gen_imgs/ck", 1);
 
@@ -1628,6 +1630,17 @@ int main(void) {
    //U = image_seg(img, params);
    //write_seg_images(img, U, "gen_imgs/two_c_elegans", 1);
 
+   // Cells
+   //set_params(params, 250., 2., 100., 0.10, 0.20, 0.10, 5, 2);
+   //img = load_image("../test_imgs/cells_512.png");
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/cells_512", 1);
+
+   // Cells overlapping
+   set_params(params, 100., 2., 25., 0.10, 0.20, 0.10, 5, 1);
+   img = load_image("../test_imgs/cells_overlap.png");
+   U = image_seg(img, params);
+   write_seg_images(img, U, "gen_imgs/cells_overlap", 1);
 
    
    // Algorithm timing stuff
