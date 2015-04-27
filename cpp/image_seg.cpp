@@ -1637,7 +1637,8 @@ int main(void) {
    //write_seg_images(img, U, "gen_imgs/cells_512", 1);
 
    // Cells overlapping
-   set_params(params, 100., 2., 25., 0.10, 0.20, 0.10, 5, 1);
+   //set_params(params, 100., 3., 25., 0.2, 0.20, 0.10, 5, 1); // halo issues
+   set_params(params, 100., 2., 25., 0.2, 0.15, 0.10, 5, 1); // this is the best I've found
    img = load_image("../test_imgs/cells_overlap.png");
    U = image_seg(img, params);
    write_seg_images(img, U, "gen_imgs/cells_overlap", 1);
