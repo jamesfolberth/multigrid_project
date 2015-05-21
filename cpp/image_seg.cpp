@@ -1637,24 +1637,34 @@ int main(void) {
    //write_seg_images(img, U, "gen_imgs/cells_512", 1);
 
    // Cells overlapping
-   //set_params(params, 100., 3., 25., 0.2, 0.20, 0.10, 5, 1); // halo issues
-   set_params(params, 100., 2., 25., 0.2, 0.15, 0.10, 5, 1); // this is the best I've found
-   img = load_image("../test_imgs/cells_overlap.png");
-   U = image_seg(img, params);
-   write_seg_images(img, U, "gen_imgs/cells_overlap", 1);
+   ////set_params(params, 100., 3., 25., 0.2, 0.20, 0.10, 5, 1); // halo issues
+   //set_params(params, 100., 2., 25., 0.2, 0.15, 0.10, 5, 1); // this is the best I've found
+   //img = load_image("../test_imgs/cells_overlap.png");
+   //U = image_seg(img, params);
+   //write_seg_images(img, U, "gen_imgs/cells_overlap", 1);
 
    
-   // Algorithm timing stuff
-   // We're currently sitting on a nice O(n^2) in the number of pixels.  This is almost entirely due to something slow thhat I'm doing in build_interp and coarsenAMG.  These two account for almost all of the cost of running the code!
-   //set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1); // Inglis coarsening
-   //set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1); // RS coarsening
-   //img = load_image("../test_imgs/peppers.jpg");
-   
-   //set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2); // Inglis coarsening
-   set_params(params, 10., 1., 10., 0.025, 0.10, 0.15, 5, 2); // RS coarsening 
-   img = load_image("../test_imgs/spiral_512.png");
-   
-   //runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
+   //// Algorithm timing stuff
+   //// We're currently sitting on a nice O(n^2) in the number of pixels.  This is almost entirely due to something slow thhat I'm doing in build_interp and coarsenAMG.  These two account for almost all of the cost of running the code!
+   ////set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1); // Inglis coarsening
+   ////set_params(params, 50., 4., 10., 0.10, 0.15, 0.15, 5, 1); // RS coarsening
+   ////img = load_image("../test_imgs/peppers.jpg");
+   //
+   ////set_params(params, 10., 1., 10., 0.05, 0.10, 0.15, 5, 2); // Inglis coarsening
+   //set_params(params, 10., 1., 10., 0.025, 0.10, 0.15, 5, 2); // RS coarsening 
+   //img = load_image("../test_imgs/spiral_512.png");
+   //
+   ////runtime_scaling(img, params, "gen_imgs/runtime_scaling.out");    
+
+
+   // Sinking Ship
+   set_params(params, 50., 5., 50., 0.15, 0.20, 0.10, 5, 2);
+   img = load_image("../test_imgs/sinking_ship_1950.jpg");
+   //img = load_image("../test_imgs/sinking_ship_750.jpg");
+   U = image_seg(img, params);
+   write_seg_images(img, U, "gen_imgs/sinking_ship_1950", 1);
+   //write_seg_images(img, U, "gen_imgs/sinking_ship_750", 1);
+
 
    return 0;
 }
